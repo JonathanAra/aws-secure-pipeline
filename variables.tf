@@ -24,3 +24,14 @@ variable "kms_key_alias" {
   type        = string
   default     = "alias/aws-secure-pipeline"
 }
+
+variable "logging_bucket_name" {
+  description = "Globally-unique name for the S3 logging bucket"
+  type        = string
+}
+
+variable "log_retention_days" {
+  description = "How long to retain raw access logs"
+  type        = number
+  default     = 90
+}
