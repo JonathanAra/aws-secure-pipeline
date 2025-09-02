@@ -34,6 +34,9 @@ resource "aws_s3_bucket_lifecycle_configuration" "logs_lifecycle" {
     id     = "expire-access-logs"
     status = "Enabled"
 
+    # REQUIRED in provider v5+: choose one of filter{} or prefix
+    filter {}  # empty filter = applies to all objects in the bucket
+
     expiration {
       days = var.log_retention_days
     }
@@ -60,4 +63,3 @@ resource "aws_s3_bucket_acl" "logs_acl" {
     aws_s3_bucket_ownership_controls.logs_ownership
   ]
 }
-
