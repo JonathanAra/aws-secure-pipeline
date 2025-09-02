@@ -18,7 +18,7 @@ It was developed as part of my cloud security learning path and highlights my ab
 - **Cloud Security**: IAM, encryption, and access controls  
 - **AWS Core Services**: S3, KMS, IAM  
 - **Version Control**: Git & GitHub workflows for project tracking  
-- **Modular Design**: Using variables, outputs, and clean folder structure  
+- **Modular Design**: Using variables, outputs, and a clean folder structure  
 
 ---
 
