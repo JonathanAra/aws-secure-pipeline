@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  security_checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
+      - name: Install tflint
+        run: |
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+          sudo mv tflint /usr/local/bin/
+
+      - name: Run tflint
+        working-directory: ./terraform
+        run: tflint --init && tflint || true
+
+      - name: Install tfsec
+        run: |
+          curl -sSL https://github.com/aquasecurity/tfsec/releases/latest/download/tfsec-linux-amd64 -o tfsec
+          chmod +x tfsec && sudo mv tfsec /usr/local/bin/
+
+      - name: tfsec scan (Terraform security)
+        working-directory: ./terraform
+        run: tfsec --soft-fail
+
+      - name: Install Trivy
+        uses: aquasecurity/setup-trivy@v0.2.1
+
+      - name: Trivy filesystem scan (repo)
+        run: trivy fs --ignore-unfixed --exit-code 0 --severity CRITICAL,HIGH .
+
+      - name: Trivy config scan (Dockerfile, k8s, etc.)
+        working-directory: ./app
+        run: trivy config --exit-code 0 .
