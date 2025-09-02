@@ -1,22 +1,35 @@
-# AWS Secure Pipeline (Phase 1)
+# AWS Secure Pipeline – Terraform Project
 
-**Goal:** Learn DevSecOps fundamentals by building a security-first pipeline step by step.
-This repo will grow from a simple README into:
-- Terraform IaC for secure AWS resources
-- Automated security scanning in CI (tflint, tfsec, Trivy)
-- “Secure by default” patterns (least privilege, encryption, no public access)
+This project demonstrates how to build and secure AWS infrastructure using **Terraform**.  
+It was developed as part of my cloud security learning path and highlights my ability to design, automate, and manage secure cloud environments.
 
-## Status
-Phase 1: repo scaffolding ✅
+---
 
-## What I’ll add next
-Phase 2: Terraform provider skeleton + secure S3 bucket (encryption + block public access)
+## 🚀 What This Project Does
+- **S3 Bucket**: Provisioned with encryption enabled to secure storage.  
+- **KMS Customer Managed Key (CMK)**: Protects sensitive data with key rotation.  
+- **IAM Best Practices**: Uses policies and restricted access to enforce least privilege.  
+- **Terraform IaC**: Code-driven approach to infrastructure for repeatability and auditability.  
 
-## Why this project exists
-Hiring managers want proof you can ship with guardrails. I’m documenting every step to show understanding—not just copy/paste.
+---
 
-## Phase 2: Secure S3 bucket (complete)
-- Enabled default encryption (SSE-S3)
-- Blocked all public access (all four switches)
-- Bucket policy denies unencrypted PUTs
-Next: switch to KMS (CMK) with tight key policy + access logs
+## 🛠️ Skills Demonstrated
+- **Infrastructure as Code (IaC)** with Terraform  
+- **Cloud Security**: IAM, encryption, and access controls  
+- **AWS Core Services**: S3, KMS, IAM  
+- **Version Control**: Git & GitHub workflows for project tracking  
+- **Modular Design**: Using variables, outputs, and clean folder structure  
+
+---
+
+## 📂 Repo Structure
+aws-secure-pipeline/
+├── terraform/
+│ ├── main.tf
+│ ├── variables.tf
+│ ├── outputs.tf
+│ ├── kms.tf
+│ ├── providers.tf
+│ ├── versions.tf
+│ └── .gitignore
+| |--README.md
