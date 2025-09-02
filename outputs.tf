@@ -23,3 +23,7 @@ output "s3_bucket_name" {
   value = aws_s3_bucket.artifacts.bucket
 }
 
+output "logging_bucket_name" {
+  description = "Logging bucket name"
+  value       = aws_s3_bucket.logs.bucket
+}
