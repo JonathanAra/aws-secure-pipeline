@@ -8,40 +8,50 @@ on:
 jobs:
   security_checks:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Terraform is useful for parsers/linters even if we don't plan/apply in CI
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_wrapper: false
 
+      # ---------- TFLint ----------
       - name: Install tflint
         run: |
           curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
           tflint --version
 
-
-      - name: Run tflint
-        working-directory: ./terraform
+      - name: Run tflint (root)
+        # Run only if there are .tf files anywhere in the repo (root in your case)
+        if: ${{ hashFiles('*.tf', '**/*.tf') != '' }}
         run: tflint --init && tflint || true
 
+      # ---------- tfsec ----------
       - name: Install tfsec
         run: |
           curl -sSL https://github.com/aquasecurity/tfsec/releases/latest/download/tfsec-linux-amd64 -o tfsec
-          chmod +x tfsec && sudo mv tfsec /usr/local/bin/
+          chmod +x tfsec
+          sudo mv tfsec /usr/local/bin/
+          tfsec --version
 
-      - name: tfsec scan (Terraform security)
-        working-directory: ./terraform
+      - name: tfsec scan (Terraform security, root)
+        if: ${{ hashFiles('*.tf', '**/*.tf') != '' }}
         run: tfsec --soft-fail
 
+      # ---------- Trivy ----------
       - name: Install Trivy
         uses: aquasecurity/setup-trivy@v0.2.1
 
-      - name: Trivy filesystem scan (repo)
+      - name: Trivy filesystem scan (entire repo)
         run: trivy fs --ignore-unfixed --exit-code 0 --severity CRITICAL,HIGH .
 
-      - name: Trivy config scan (Dockerfile, k8s, etc.)
+      # Optional: scan config in ./app if it exists (Dockerfile, k8s manifests, etc.)
+      - name: Trivy config scan (./app)
+        if: ${{ hashFiles('app/**') != '' }}
         working-directory: ./app
         run: trivy config --exit-code 0 .
+
