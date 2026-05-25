@@ -1,7 +1,7 @@
 # AWS Secure Pipeline – Terraform Project
 
 This project demonstrates how to build and secure AWS infrastructure using **Terraform**.  
-It demonstrates enterprise-grade AWS security patterns and highlights my ability to design, automate, and manage secure cloud environments.
+It demonstrates enterprise-grade AWS security patterns and highlights my ability to design, automate, and manage secure cloud environments. A GitHub Actions CI/CD Pipeline automatically runs every push and pull request, executing TFLint for code quality, tfsec for Terraform security misconfiguration scanning, and Teivy for CRITICAL/High vulnerability detection across the repository. Ensuring the infrastructure meets the security standard before any deployment
 
 ## Topics: AWS, Terraform, S3, KMS, IaC, Security
 
