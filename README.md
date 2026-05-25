@@ -1,7 +1,9 @@
 # AWS Secure Pipeline – Terraform Project
 
 This project demonstrates how to build and secure AWS infrastructure using **Terraform**.  
-It was developed as part of my cloud security learning path and highlights my ability to design, automate, and manage secure cloud environments.
+It demonstrates enterprise-grade AWS security patterns and highlights my ability to design, automate, and manage secure cloud environments.
+
+## Topics: AWS, Terraform, S3, KMS, IaC, Security
 
 ---
 
