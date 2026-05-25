@@ -40,7 +40,7 @@ jobs:
 
       - name: tfsec scan (Terraform security, root)
         if: ${{ hashFiles('*.tf', '**/*.tf') != '' }}
-        run: tfsec --soft-fail
+        run: tfsec --soft-fail #to report issues without breaking the pipeline
 
       # ---------- Trivy ----------
       - name: Install Trivy
